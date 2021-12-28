@@ -1,10 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import { MenuItem } from "../Menu-Item/menu-item";
 import "./directory.scss";
 
 export const Directory = () => {
-const [sections, setSections] = useState(
-    [
+  //static info for menu items
+const sections = [
         {
             title: 'hats',
             imageUrl: 'https://i.ibb.co/cvpntL1/hats.png',
@@ -38,7 +38,6 @@ const [sections, setSections] = useState(
             linkUrl: 'shop/mens'
           }    
     ]
-)
 
 
   return (
@@ -51,9 +50,9 @@ const [sections, setSections] = useState(
                   title={section.title}
                   imageUrl={section.imageUrl}
                   size={section.size}
+                  linkUrl={section.linkUrl}
                   />
               )
-
               )
           }
       </div>
