@@ -17,6 +17,9 @@ export const Header = () => {
         <Link className="option" to="/shop">
           CONTACT
         </Link>
+        <Link className="option" to="/signin">
+            SIGNIN
+        </Link>
       </div>
     </div>
   );
