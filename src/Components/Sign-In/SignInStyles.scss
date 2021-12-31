@@ -7,3 +7,9 @@
 .title {
   margin: 10px 0;
 }
+
+.button-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

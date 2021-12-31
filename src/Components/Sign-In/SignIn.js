@@ -59,8 +59,10 @@ export const SignIn = () => {
           handleChange={handlePasswordChange}
           required
         />
+        <div className="button-div">
         <CustomButton type="submit">SIGN IN</CustomButton>
         <CustomButton onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</CustomButton>
+        </div>
       </form>
     </div>
   );
