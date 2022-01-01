@@ -5,10 +5,9 @@ import "./SignInStyles.scss";
 
 import { signInWithGoogle } from "../../firebase/FireBaseUtils";
 
-
 export const SignIn = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [signInInfo, setSignInInfo] = useState({ email: "", password: "" });
 
   //handle form submit
@@ -20,22 +19,18 @@ export const SignIn = () => {
 
   //handle value change for email or password
   const handleEmailChange = (e) => {
-  const {value, name} = e.target;
-  if (name === "email") {
-  setEmail(value)
-  }
-  }
+    const { value, name } = e.target;
+    if (name === "email") {
+      setEmail(value);
+    }
+  };
 
   const handlePasswordChange = (e) => {
-    const {value, name} = e.target;
+    const { value, name } = e.target;
     if (name === "password") {
-    setPassword(value)
+      setPassword(value);
     }
-    }
-  
-
-
-
+  };
 
   return (
     <div className="sign-in">
@@ -43,16 +38,16 @@ export const SignIn = () => {
       <span>Sign in with your email and password</span>
 
       <form onSubmit={handleSubmit}>
-        <FormInput 
-        label={"Email"}
-        name={"email"}
-        type={"email"} 
-        value={email} 
-        handleChange={handleEmailChange}
-        required 
+        <FormInput
+          label={"Email"}
+          name={"email"}
+          type={"email"}
+          value={email}
+          handleChange={handleEmailChange}
+          required
         />
         <FormInput
-         label={"Password"}
+          label={"Password"}
           name={"password"}
           type={"password"}
           value={password}
@@ -60,8 +55,10 @@ export const SignIn = () => {
           required
         />
         <div className="button-div">
-        <CustomButton type="submit">SIGN IN</CustomButton>
-        <CustomButton onClick={signInWithGoogle}>SIGN IN WITH GOOGLE</CustomButton>
+          <CustomButton type="submit">SIGN IN</CustomButton>
+          <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+            SIGN IN WITH GOOGLE
+          </CustomButton>
         </div>
       </form>
     </div>
