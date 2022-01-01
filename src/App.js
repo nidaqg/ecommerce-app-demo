@@ -17,6 +17,7 @@ import { BrowserRouter as Router,
 function App() {
   const [currentUser,setCurrentUser] =useState(null);
 
+
   useEffect(() => {
   auth.onAuthStateChanged(user => {
     setCurrentUser(user)
@@ -30,7 +31,7 @@ function App() {
   return (
     <div>
       <Router>
-        <Header/>
+        <Header currentuser = {currentUser}/>
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/shop" element={<ShopPage/>}/>
