@@ -4,20 +4,17 @@ import { CustomButton } from "../Custom-Button/CustomButton";
 import "./SignInStyles.scss";
 import {useNavigate} from 'react-router-dom';
 
-import { auth, createUserProfileDoc, signInWithGoogle } from "../../firebase/FireBaseUtils";
+import { auth, signInWithGoogle } from "../../firebase/FireBaseUtils";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [signInInfo, setSignInInfo] = useState({ email: "", password: "" });
 
   const navigate = useNavigate();
   
   //handle form submit
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSignInInfo({ email: email, password: password });
-    console.log(signInInfo);
     SignInUser();
   };
 

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
-import { auth} from "../../firebase/FireBaseUtils";
+import { auth, firestore} from "../../firebase/FireBaseUtils";
 
 import "./SignUpStyles.scss";
 
@@ -14,11 +14,6 @@ export const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [userInfo, setUserInfo] = useState({
-    displayName: "",
-    email: "",
-    password: "",
-  });
 
   //navigation
   let navigate = useNavigate();
@@ -30,27 +25,37 @@ export const SignUp = () => {
       alert("Passwords dont match! Please try again");
       return;
     } else {
-      setUserInfo({
-        displayName: displayName,
-        email: email,
-        password: password,
-      });
       createUser();
     }
   };
 
+  //function to create user in the firebase auth host
   const createUser = async () => {
     await auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-        console.log(user);
+         createFireStoreUserProfile()
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+//function to store user in firestore database
+const createFireStoreUserProfile = async () => {
+
+  await firestore.collection("users").add({
+    displayName: displayName,
+    email: email,
+    password: password,
+  }
+  )
+  console.log("DONE")
+  // navigate("/");
+}
+
 
   return (
     <div className="sign-up">
