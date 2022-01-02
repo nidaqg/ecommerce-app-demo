@@ -5,7 +5,6 @@ import "./SignInStyles.scss";
 import {useNavigate} from 'react-router-dom';
 
 import { auth, createUserProfileDoc, signInWithGoogle } from "../../firebase/FireBaseUtils";
-import { Navigate } from "react-router-dom";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -22,6 +21,7 @@ export const SignIn = () => {
     SignInUser();
   };
 
+  //create user in firebase database
   const SignInUser = async () => {
     await auth
       .signInWithEmailAndPassword(email, password)
@@ -35,20 +35,6 @@ export const SignIn = () => {
       });
   };
 
-  //handle value change for email or password
-  const handleEmailChange = (e) => {
-    const { value, name } = e.target;
-    if (name === "email") {
-      setEmail(value);
-    }
-  };
-
-  const handlePasswordChange = (e) => {
-    const { value, name } = e.target;
-    if (name === "password") {
-      setPassword(value);
-    }
-  };
 
   return (
     <div className="sign-in">
@@ -61,7 +47,7 @@ export const SignIn = () => {
           name={"email"}
           type={"email"}
           value={email}
-          handleChange={handleEmailChange}
+          handleChange={(e)=> {setEmail(e.target.value)}}
           required
         />
         <FormInput
@@ -69,7 +55,7 @@ export const SignIn = () => {
           name={"password"}
           type={"password"}
           value={password}
-          handleChange={handlePasswordChange}
+          handleChange={(e)=> {setPassword(e.target.value)}}
           required
         />
         <div className="button-div">

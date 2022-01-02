@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
-import { auth, createUserProfileDoc } from "../../firebase/FireBaseUtils";
+import { auth} from "../../firebase/FireBaseUtils";
 
 import "./SignUpStyles.scss";
 
@@ -23,33 +23,11 @@ export const SignUp = () => {
   //navigation
   let navigate = useNavigate();
 
-  const handleEmailChange = (e) => {
-    const { value, name } = e.target;
-    if (name === "email") {
-      setEmail(value);
-    }
-  };
-
-  const handlePasswordChange = (e) => {
-    const { value, name } = e.target;
-    if (name === "password") {
-      setPassword(value);
-    } else if (name === "confirmPassword") {
-      setConfirmPassword(value);
-    }
-  };
-
-  const handleDisplayNameChange = (e) => {
-    const { value, name } = e.target;
-    if (name === "displayName") {
-      setDisplayName(value);
-    }
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("passwords dont match");
+      alert("Passwords dont match! Please try again");
       return;
     } else {
       setUserInfo({
@@ -84,7 +62,7 @@ export const SignUp = () => {
           type="text"
           name="displayName"
           value={displayName}
-          handleChange={handleDisplayNameChange}
+          handleChange={(e)=> {setDisplayName(e.target.value)}}
           label="Display Name"
           required
         />
@@ -93,7 +71,7 @@ export const SignUp = () => {
           type="email"
           name="email"
           value={email}
-          handleChange={handleEmailChange}
+          handleChange={(e)=> {setEmail(e.target.value)}}
           label="Email"
           required
         />
@@ -102,7 +80,7 @@ export const SignUp = () => {
           type="password"
           name="password"
           value={password}
-          handleChange={handlePasswordChange}
+          handleChange={(e)=> {setPassword(e.target.value)}}
           label="Enter Password"
           required
         />
@@ -110,7 +88,7 @@ export const SignUp = () => {
           type="password"
           name="confirmPassword"
           value={confirmPassword}
-          handleChange={handlePasswordChange}
+          handleChange={(e)=> {setConfirmPassword(e.target.value)}}
           label="Re-Enter Password"
           required
         />
