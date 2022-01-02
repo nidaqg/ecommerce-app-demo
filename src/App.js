@@ -5,7 +5,7 @@ import { ShopPage } from "./Pages/ShopPage/ShopPage";
 import { Header } from "./Components/Header/Header";
 import { SignInPage } from "./Pages/SignIn/SignInPage";
 
-import { auth } from "./firebase/FireBaseUtils";
+import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
 
 import "./app.scss";
 import { BrowserRouter as Router, 
@@ -19,8 +19,10 @@ function App() {
 
 
   useEffect(() => {
-  auth.onAuthStateChanged(user => {
-    setCurrentUser(user)
+  auth.onAuthStateChanged( async user => {
+    
+    createUserProfileDoc(user)
+    await setCurrentUser(user)
     console.log(currentUser)
     
   })
