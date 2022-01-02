@@ -2,19 +2,37 @@ import React, { useState } from "react";
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
 import "./SignInStyles.scss";
+import {useNavigate} from 'react-router-dom';
 
-import { signInWithGoogle } from "../../firebase/FireBaseUtils";
+import { auth, createUserProfileDoc, signInWithGoogle } from "../../firebase/FireBaseUtils";
+import { Navigate } from "react-router-dom";
 
 export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [signInInfo, setSignInInfo] = useState({ email: "", password: "" });
 
+  const navigate = useNavigate();
+  
   //handle form submit
   const handleSubmit = (event) => {
     event.preventDefault();
     setSignInInfo({ email: email, password: password });
     console.log(signInInfo);
+    SignInUser();
+  };
+
+  const SignInUser = async () => {
+    await auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        const user = userCredentials.user;
+        console.log(user);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   //handle value change for email or password
