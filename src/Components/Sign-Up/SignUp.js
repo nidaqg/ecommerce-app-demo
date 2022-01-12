@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
-import { auth, firestore} from "../../firebase/FireBaseUtils";
+import { auth, createUserProfileDoc, firestore} from "../../firebase/FireBaseUtils";
 
 import "./SignUpStyles.scss";
 
@@ -35,7 +35,7 @@ export const SignUp = () => {
       .createUserWithEmailAndPassword(email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
-         createFireStoreUserProfile()
+        createUserProfileDoc(user, {displayName})
         navigate("/");
       })
       .catch((err) => {
@@ -44,17 +44,6 @@ export const SignUp = () => {
   };
 
 //function to store user in firestore database
-const createFireStoreUserProfile = async () => {
-
-  await firestore.collection("users").add({
-    displayName: displayName,
-    email: email,
-    password: password,
-  }
-  )
-  console.log("DONE")
-  // navigate("/");
-}
 
 
   return (
