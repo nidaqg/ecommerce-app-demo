@@ -25,19 +25,39 @@ const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({prompt: 'select_account'});
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
 
-//not working??
-export const createUserProfileDoc = async (userAuth) => {
-   if(userAuth === null) return;
+//create user from google sign in to store in firestore db
+export const createUserProfileDoc = async (userAuth, additionalData) => {
+   if(!userAuth) return;
 
-// //   firestore.collection("users").get().then((querySnapshot) => {
-// //     querySnapshot.forEach((doc) => {
-// //         console.log(`${doc.id} => ${doc.data()}`);
-// //     });
-// // });
-  
+  //query firestore with the uid of the userAuth object whixh is currently signed in 
+  //user
   const userRef = firestore.doc(`users/${userAuth.uid}`);
-  console.log(userRef)
+
+  //CRUD methods can be applied to userRef
+  const snapShot = await userRef.get();
+ 
+  //if the user does not already exist in the forestore db, do this
+  if(!snapShot.exists) {
+   const {displayName, email} = userAuth; 
+   const createdAt = new Date();
+
+   try {
+     await userRef.set({
+       displayName,
+       email,
+       createdAt,
+       ...additionalData
+     })
+
+   } catch (err) {
+     console.log("ERROR CREATING USER",err)
+   }
+  }
+  //we still userRef from this code in case we need it elsewhere later on
+  return userRef;
+
 }
+
 
 
 
