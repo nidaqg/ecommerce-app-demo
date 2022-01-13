@@ -1,10 +1,18 @@
 import React from "react";
 import "./CustomButtonStyles.scss";
 
-export const CustomButton = ({ children, isGoogleSignIn, ...otherProps }) => {
+//ternary operators to change button css based on class bring present or not
+export const CustomButton = ({
+  children,
+  inverted,
+  isGoogleSignIn,
+  ...otherProps
+}) => {
   return (
     <button
-      className={`${isGoogleSignIn ? "google-sign-in" : ""} custom-button`}
+      className={`${inverted ? "inverted" : ""} ${
+        isGoogleSignIn ? "google-sign-in" : ""
+      } custom-button`}
       {...otherProps}
     >
       {children}

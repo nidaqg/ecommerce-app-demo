@@ -1,6 +1,8 @@
 import React from 'react';
 import "./PreviewItemStyles.scss";
 
+import { CustomButton } from '../Custom-Button/CustomButton';
+
 export const PreviewItem = ({id, name, price, imageUrl}) => {
     return (
         <div className="collection-item">
@@ -12,7 +14,7 @@ export const PreviewItem = ({id, name, price, imageUrl}) => {
                 <span className='price'>${price}</span>
             </div>
 
-            
+            <CustomButton inverted>ADD TO CART</CustomButton>
         </div>
     )
 }
