@@ -7,7 +7,7 @@ import store from "./Redux/Store";
 
 import { Homepage } from "./Pages/Homepage/Homepage";
 import { ShopPage } from "./Pages/ShopPage/ShopPage";
-import { Header } from "./Components/Header/Header";
+import Header from "./Components/Header/Header";
 import { SignInPage } from "./Pages/SignIn/SignInPage";
 
 import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
@@ -56,7 +56,7 @@ class App extends React.Component {
       <>
         <Provider store={store}>
         <Router>
-          <Header currentuser={this.state.currentUser} />
+          <Header/>
           <Routes>
             <Route exact path="/" element={<Homepage />} />
             <Route exact path="/shop" element={<ShopPage />} />

@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+import { connect } from "react-redux";
+
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+
 import './HeaderStyles.scss';
 import { auth } from "../../firebase/FireBaseUtils";
 
-export const Header = ({currentuser}) => {
+const Header = ({currentUser}) => {
   return (
     <div className="header">
       <Link className="logo-container" to="/">
@@ -19,7 +23,7 @@ export const Header = ({currentuser}) => {
           CONTACT
         </Link>
         {
-          currentuser ? (
+          currentUser ? (
             <div className="option" onClick={() => auth.signOut()}>
               SIGNOUT
             </div>
@@ -29,11 +33,16 @@ export const Header = ({currentuser}) => {
            </Link>
           )
         }
-        {/* <Link 
-        className="option" to="/signin">
-            SIGNIN
-        </Link> */}
       </div>
     </div>
   );
 };
+
+//how to connect state to Header prop
+const mapStateToProps = state => ({
+currentUser: state.user.currentUser
+})
+
+//use connect higher order function anywhere where we need 
+//properties from our state
+export default connect()(Header)
