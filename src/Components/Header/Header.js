@@ -45,4 +45,4 @@ currentUser: state.user.currentUser
 
 //use connect higher order function anywhere where we need 
 //properties from our state
-export default connect()(Header)
+export default connect(mapStateToProps)(Header)
