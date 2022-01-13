@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { Homepage } from "./Pages/Homepage/Homepage";
 import { ShopPage } from "./Pages/ShopPage/ShopPage";
@@ -10,38 +10,51 @@ import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
 import "./app.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-function App() {
-  const [currentUser, setCurrentUser] = useState(null);
 
+class App extends React.Component {
+  constructor() {
+    super ();
+    this.state = {
+      currentUser:null
+    }
+  }
 
-  useEffect(() => {
-    //on auth state change fires everytime the auth changes and returns the current
-    //user object
-    auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDoc(userAuth);
+unsubscribeFromAuth = null;
 
-        //set current user with the data from the firestore db
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser({
+componentDidMount() {
+  this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    if (userAuth) {
+      const userRef = await createUserProfileDoc(userAuth);
+
+      //set current user with the data from the firestore db
+      userRef.onSnapshot(snapShot => {
+        this.setState({
+          currentUser: {
             id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
+            ...snapShot.data()
+          }
+        })
+        console.log(this.state)
+      });
 
-      } else {
-        //if userAuth doesn't exist, set current user to null
-        setCurrentUser(userAuth);
-      }
-    });
-     console.log(currentUser)
+    } else {
+      //if userAuth doesn't exist, set current user to null
+     this.setState({currentUser: userAuth}) 
+    }
+  });
+}
 
-  }, []);
+componentWillUnmount (){
+  this.unsubscribeFromAuth()
+}
+
+render () {
+
 
   return (
     <div>
       <Router>
-        <Header currentuser={currentUser} />
+        <Header currentuser={this.state.currentUser} />
         <Routes>
           <Route exact path="/" element={<Homepage />} />
           <Route exact path="/shop" element={<ShopPage />} />
@@ -50,6 +63,7 @@ function App() {
       </Router>
     </div>
   );
+}
 }
 
 export default App;

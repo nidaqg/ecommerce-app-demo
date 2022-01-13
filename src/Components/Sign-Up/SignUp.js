@@ -43,8 +43,6 @@ export const SignUp = () => {
       });
   };
 
-//function to store user in firestore database
-
 
   return (
     <div className="sign-up">
