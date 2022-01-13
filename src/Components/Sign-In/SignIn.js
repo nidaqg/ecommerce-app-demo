@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
 import "./SignInStyles.scss";
-import {useNavigate} from 'react-router-dom';
 
 import { auth, signInWithGoogle } from "../../firebase/FireBaseUtils";
 
@@ -10,7 +9,6 @@ export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
   
   //handle form submit
   const handleSubmit = (event) => {
@@ -25,7 +23,6 @@ export const SignIn = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log(user);
-        navigate("/");
       })
       .catch((err) => {
         console.log(err);

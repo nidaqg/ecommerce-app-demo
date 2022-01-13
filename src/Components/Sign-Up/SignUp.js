@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
@@ -13,10 +12,6 @@ export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
-
-  //navigation
-  let navigate = useNavigate();
 
 
   const handleSubmit = (e) => {
@@ -36,7 +31,6 @@ export const SignUp = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         createUserProfileDoc(user, {displayName})
-        navigate("/");
       })
       .catch((err) => {
         console.log(err);
