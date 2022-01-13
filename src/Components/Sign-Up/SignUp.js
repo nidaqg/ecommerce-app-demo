@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { FormInput } from "../Form-Input/FormInput";
 import { CustomButton } from "../Custom-Button/CustomButton";
-import { auth, createUserProfileDoc, firestore} from "../../firebase/FireBaseUtils";
+import { auth, createUserProfileDoc} from "../../firebase/FireBaseUtils";
 
 import "./SignUpStyles.scss";
 
