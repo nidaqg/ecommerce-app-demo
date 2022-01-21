@@ -4,6 +4,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./Redux/User/User-Actions";
 
+//import selectors
+import { selectCurrentUser } from "./Redux/User/UserSelectors";
+
 import { Homepage } from "./Pages/Homepage/Homepage";
 import { ShopPage } from "./Pages/ShopPage/ShopPage";
 import Header from "./Components/Header/Header";
@@ -80,8 +83,8 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 //bring in currentUser from reducer
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser,
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

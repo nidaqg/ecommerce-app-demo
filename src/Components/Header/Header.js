@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+//redux imports
 import { connect } from "react-redux";
+
+//selector imports
+import { selectCartHidden } from "../../Redux/Cart/CartSelectors";
+import { selectCurrentUser } from "../../Redux/User/UserSelectors";
 
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 
@@ -41,9 +46,9 @@ const Header = ({ currentUser, hidden }) => {
 };
 
 //how to connect state to Header prop
-const mapStateToProps = ({ user: { currentUser } ,  cart: { hidden } }) => ({
-  currentUser,
-  hidden,
+const mapStateToProps = (state) => ({
+  currentUser: selectCurrentUser(state),
+  hidden: selectCartHidden(state)
 });
 
 //use connect higher order function anywhere where we need

@@ -16,5 +16,10 @@ export const selectCartItemsCount = createSelector(
         (accumulatedQuantity, cartItem) => 
         accumulatedQuantity + cartItem.quantity, 0
     )
+);
 
+//hidden toggle selector
+export const selectCartHidden = createSelector(
+    [selectCart],
+    cart => cart.hidden
 );
