@@ -1,4 +1,6 @@
 import React from "react";
+import {useNavigate} from "react-router-dom";
+
 import "./CartDropDownStyles.scss";
 import { CustomButton } from "../Custom-Button/CustomButton";
 import { CartItem } from "../Cart-Item/CartItem";
@@ -9,6 +11,9 @@ import { selectCartItems } from "../../Redux/Cart/CartSelectors";
 import { connect } from "react-redux";
 
 const CartDropDown = ({ cartItems }) => {
+
+  let navigate = useNavigate();
+
   return (
     <div className="cart-dropdown">
       <div className="cart-items">
@@ -19,7 +24,7 @@ const CartDropDown = ({ cartItems }) => {
           <span className="empty-message">Your cart is empty</span>
         )}
       </div>
-      <CustomButton>GO TO CHECKOUT</CustomButton>
+      <CustomButton onClick={()=> {navigate('/checkout')}}>GO TO CHECKOUT</CustomButton>
     </div>
   );
 };

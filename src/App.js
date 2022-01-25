@@ -11,6 +11,7 @@ import { Homepage } from "./Pages/Homepage/Homepage";
 import { ShopPage } from "./Pages/ShopPage/ShopPage";
 import Header from "./Components/Header/Header";
 import { SignInPage } from "./Pages/SignIn/SignInPage";
+import CheckoutPage  from "./Pages/Checkout/CheckoutPage";
 
 import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
 
@@ -59,6 +60,7 @@ class App extends React.Component {
           <Routes>
             <Route exact path="/" element={<Homepage />} />
             <Route path="/shop" element={<ShopPage />} />
+            <Route exact path="/checkout" element={<CheckoutPage/>}/>
             <Route
               exact
               path="/signin"
