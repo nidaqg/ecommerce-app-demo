@@ -2,11 +2,26 @@
 //works like an index file
 
 import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+
 import { userReducer } from "./User/User-Reducer";
 import { cartReducer } from "./Cart/CartReducer";
 
-//route to relevant reducer file based on key
-export default combineReducers({
-    user:userReducer,
-    cart:cartReducer
+//define persist configuration
+//white list is an array of all the things we want to persist. We do not persist
+//user as that is being persisted by firebase already
+const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist:['cart']
+};
+
+const rootReducer = combineReducers({
+    user: userReducer,
+    cart: cartReducer
 })
+
+//wrap reducers in persistReducer before exporting
+export default persistReducer(persistConfig, rootReducer)
