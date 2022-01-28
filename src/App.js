@@ -17,11 +17,12 @@ import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
 
 import "./app.scss";
 import {
-  BrowserRouter as Router,
   Route,
   Routes,
   Navigate,
 } from "react-router-dom";
+import CollectionsOverview from "./Components/Collections-Overview/CollectionsOverview";
+import CollectionsPage from "./Pages/CollectionsPage/CollectionsPage";
 
 class App extends React.Component {
   unsubscribeFromAuth = null;
@@ -55,11 +56,13 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Router>
           <Header />
           <Routes>
             <Route exact path="/" element={<Homepage />} />
-            <Route path="/shop" element={<ShopPage />} />
+            <Route path="/shop/*" element={<ShopPage />}>
+              <Route path="" element={<CollectionsOverview/>}/>
+              <Route path=":collectionId" element={<CollectionsPage/>}/>
+            </Route>
             <Route exact path="/checkout" element={<CheckoutPage/>}/>
             <Route
               exact
@@ -73,7 +76,6 @@ class App extends React.Component {
               }
             />
           </Routes>
-        </Router>
       </>
     );
   }
