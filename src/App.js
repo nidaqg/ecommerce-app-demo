@@ -8,7 +8,7 @@ import { setCurrentUser } from "./Redux/User/User-Actions";
 import { selectCurrentUser } from "./Redux/User/UserSelectors";
 
 import { Homepage } from "./Pages/Homepage/Homepage";
-import { ShopPage } from "./Pages/ShopPage/ShopPage";
+import ShopPage from "./Pages/ShopPage/ShopPage";
 import Header from "./Components/Header/Header";
 import { SignInPage } from "./Pages/SignIn/SignInPage";
 import CheckoutPage  from "./Pages/Checkout/CheckoutPage";

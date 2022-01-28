@@ -8,6 +8,8 @@ import storage from "redux-persist/lib/storage";
 
 import { userReducer } from "./User/User-Reducer";
 import { cartReducer } from "./Cart/CartReducer";
+import { directoryReducer } from "./Directory/Directory-Reducer";
+import {shopReducer} from "./Shop/Shop-Reducer";
 
 //define persist configuration
 //white list is an array of all the things we want to persist. We do not persist
@@ -20,8 +22,10 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userReducer,
-    cart: cartReducer
-})
+    cart: cartReducer,
+    directory: directoryReducer,
+    shop: shopReducer
+});
 
 //wrap reducers in persistReducer before exporting
 export default persistReducer(persistConfig, rootReducer)

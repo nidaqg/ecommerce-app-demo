@@ -1,11 +1,11 @@
 import React from 'react';
-import SHOP_DATA from './ShopData';
 import { ShopPreview } from '../../Components/Shop-Preview/ShopPreview';
 
-export const ShopPage = () => {
+import { connect } from 'react-redux';
+import { selectShopCollections } from '../../Redux/Shop/Shop-Selectors';
 
-    //static shop data for demo purposes
-const collections = SHOP_DATA;
+const ShopPage = ({collections}) => {
+
 
     return (
         <div className="shop-page">
@@ -21,3 +21,9 @@ const collections = SHOP_DATA;
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    collections: selectShopCollections(state)
+})
+
+export default connect(mapStateToProps)(ShopPage);
