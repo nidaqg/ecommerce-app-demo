@@ -40,7 +40,7 @@ export const SignUp = () => {
 
   return (
     <div className="sign-up">
-      <h1 className="title">I do not have an account</h1>
+      <h1 className="title">Sign up for an Account</h1>
       <span>Sign up with your email and password</span>
 
       <form className="sign-up-form" onSubmit={handleSubmit}>
@@ -79,7 +79,10 @@ export const SignUp = () => {
           required
         />
 
-        <CustomButton type="submit">SIGN UP</CustomButton>
+       <div className="button-div">
+         <CustomButton type="submit">SIGN UP</CustomButton>
+         </div>
+        
       </form>
     </div>
   );

@@ -32,8 +32,8 @@ export const SignIn = () => {
 
   return (
     <div className="sign-in">
-      <h1>I already have an account</h1>
-      <span>Sign in with your email and password</span>
+      <h1>Sign in to your account</h1>
+      <span>use Email OR Google sign-in</span>
 
       <form onSubmit={handleSubmit}>
         <FormInput

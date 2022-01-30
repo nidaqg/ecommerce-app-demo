@@ -1,17 +1,25 @@
-.sign-in-and-sign-up {
-    width: 850px;
-    display: flex;
-    justify-content: space-between;
-    margin: 30px auto;
+.sign-in-page {
+  display: flex;
+  flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+    width: 60%;
+    margin: auto;
+
+    .switch-signin {
+      margin-top: 10px;
+      font-size: 18px;
+
+      .signup-link {
+        color: dodgerblue;
+      }
+    }
+
 
     @media screen and(max-width:800px) {
-     width: unset;
-     flex-direction: column;
-     align-items: center;
-
-     > *:first-child {
-      margin-bottom: 50px;
-    }
+     padding: unset;
+     width: 90%;
 
     } 
   }

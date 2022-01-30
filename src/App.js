@@ -11,6 +11,7 @@ import { Homepage } from "./Pages/Homepage/Homepage";
 import ShopPage from "./Pages/ShopPage/ShopPage";
 import Header from "./Components/Header/Header";
 import { SignInPage } from "./Pages/SignIn/SignInPage";
+import { SignUpPage } from "./Pages/SignUp/SignUpPage";
 import CheckoutPage  from "./Pages/Checkout/CheckoutPage";
 
 import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
@@ -75,6 +76,18 @@ class App extends React.Component {
                 )
               }
             />
+              <Route
+              exact
+              path="/signup"
+              element={
+                this.props.currentUser ? (
+                  <Navigate replace to="/" />
+                ) : (
+                  <SignUpPage />
+                )
+              }
+            />
+
           </Routes>
       </>
     );

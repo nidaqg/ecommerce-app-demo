@@ -1,7 +1,12 @@
 .sign-in {
-  width: 380px;
+  width: 500px;
   display: flex; 
   flex-direction: column; 
+  padding: 30px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 
   @media screen and(max-width:800px) {
     width: 90%;
@@ -13,14 +18,16 @@
 }
 
 .button-div {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+  justify-content: center;
+  margin-bottom: 10px;
 
-  @media screen and(max-width:800px) {
-    display: grid;
-     grid-template-columns: 1fr 1fr;
-     grid-gap: 15px;
-     justify-content: center;
+
+  @media screen and(max-width:400px) {
+     display: flex;
+     flex-direction: column;
     
   }
 }
