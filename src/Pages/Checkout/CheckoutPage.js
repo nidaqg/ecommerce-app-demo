@@ -3,6 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import CheckoutItem from '../../Components/Checkout-Item/CheckoutItem';
+import { CheckoutButton } from '../../Components/CheckoutButton/CheckoutButton';
 
 //import selectors
 import {selectCartItems, selectCartTotal} from "../../Redux/Cart/CartSelectors";
@@ -40,6 +41,14 @@ const CheckoutPage = ({cartItems,total}) => {
                 ))
             }
         <div className='total'>Total: ${total}</div>
+
+        <div className='test-warning'>
+            *Please use the following test credit card payments*
+            <br/>
+            4242 4242 4242 4242 - Exp: 01/24 - CVV:123
+        </div>
+        <div className='checkout-button'><CheckoutButton price={total}/></div>
+        
 
         </div>
     )
