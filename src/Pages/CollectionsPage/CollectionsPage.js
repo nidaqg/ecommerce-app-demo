@@ -19,9 +19,7 @@ const CollectionsPage = ({ collections }) => {
       <h2 className="title">{currentCollection.title}</h2>
       <div className="items">
       {currentCollection.items.map((item) => (
-          <div>
         <PreviewItem key={item.id} item={item} />
-        </div>
       ))}
       </div>
     </div>
