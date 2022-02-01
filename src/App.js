@@ -14,7 +14,7 @@ import { SignInPage } from "./Pages/SignIn/SignInPage";
 import { SignUpPage } from "./Pages/SignUp/SignUpPage";
 import CheckoutPage  from "./Pages/Checkout/CheckoutPage";
 
-import { auth, createUserProfileDoc } from "./firebase/FireBaseUtils";
+import { auth, createUserProfileDoc} from "./firebase/FireBaseUtils";
 
 import "./app.scss";
 import {

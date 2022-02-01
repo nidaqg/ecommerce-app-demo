@@ -14,7 +14,6 @@ const firebaseConfig = {
 
 //initilaize firebase
 firebase.initializeApp(firebaseConfig);
-// export const firestore = firestore.getFirestore();
 
 //export firestore db and auth for use in rest of app
 export const auth = firebase.auth();
@@ -29,7 +28,7 @@ export const signInWithGoogle = () => auth.signInWithPopup(provider);
 export const createUserProfileDoc = async (userAuth, additionalData) => {
    if(!userAuth) return;
 
-  //query firestore with the uid of the userAuth object whixh is currently signed in 
+  //query firestore with the uid of the userAuth object which is currently signed in 
   //user
   const userRef = firestore.doc(`users/${userAuth.uid}`);
 
@@ -56,6 +55,18 @@ export const createUserProfileDoc = async (userAuth, additionalData) => {
   //we still userRef from this code in case we need it elsewhere later on
   return userRef;
 
+};
+
+export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  console.log(collectionRef)
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+   batch.set(newDocRef, obj)
+  })
+  await batch.commit();
 }
 
 
