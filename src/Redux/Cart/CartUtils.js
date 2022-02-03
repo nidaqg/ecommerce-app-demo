@@ -2,20 +2,22 @@
 
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   //check to see if cartItemToAdd already exists in cartItems Array
-  const existingCartItem = cartItems.find(
+  const existingCartItem = cartItems ? (cartItems.find(
     (cartItem) => cartItem.id === cartItemToAdd.id
-  );
+  )):(null)
 
   //if it exists, then increase quantity otherwise add it as new item 
   //in array with quanity as 1
-  if (existingCartItem) {
+  if (existingCartItem && cartItems) {
     return cartItems.map((cartItem) =>
       cartItem.id === cartItemToAdd.id
         ? { ...cartItem, quantity: (cartItem.quantity + 1) }
         : cartItem
     );
-  } else {
+  } else if (!existingCartItem && cartItems) {
     return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+  } else {
+    return[{...cartItemToAdd, quantity: 1}]
   }
 };
 

@@ -13,7 +13,9 @@ const CartIcon = ({ toggleCartHidden, itemCount }) => {
   return (
     <div className="cart-icon" onClick={toggleCartHidden}>
       <ShoppingIcon className="shopping-icon" />
-      <span className="item-count">{itemCount}</span>
+      <span className="item-count">{
+      itemCount ? itemCount : '0'
+      }</span>
     </div>
   );
 };

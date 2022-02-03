@@ -12,10 +12,10 @@ export const selectCartItems = createSelector(
 //count selector
 export const selectCartItemsCount = createSelector(
     [selectCartItems],
-    cartItems => cartItems.reduce(
+    cartItems => cartItems ? (cartItems.reduce(
         (accumulatedQuantity, cartItem) => 
         accumulatedQuantity + cartItem.quantity, 0
-    )
+    )):(null)
 );
 
 //hidden toggle selector
@@ -27,9 +27,9 @@ export const selectCartHidden = createSelector(
 //total cart items value selector
 export const selectCartTotal = createSelector(
     [selectCartItems],
-    cartItems => cartItems.reduce(
+    cartItems => cartItems ? (cartItems.reduce(
         (accumulatedQuantity, cartItem) =>
         accumulatedQuantity + cartItem.quantity * cartItem.price,
         0
-    )
+    )):(null)
 )
