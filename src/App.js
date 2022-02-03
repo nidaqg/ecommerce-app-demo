@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 
 //connect is a higher order function from redux
 import { connect } from "react-redux";
@@ -27,21 +27,10 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import CollectionsOverview from "./Components/Collections-Overview/CollectionsOverview";
 import CollectionsPage from "./Pages/CollectionsPage/CollectionsPage";
 
-class App extends React.Component {
-  unsubscribeFromAuth = null;
+const App =({currentUser, setCurrentUser,updateCollections})=> {
 
-  componentDidMount() {
-    //decontruct for easier code
-    const { setCurrentUser, updateCollections } = this.props;
-    //pull in shop data
-    const collectionRef = firestore.collection("collections");
-
-    collectionRef.get().then((snapshot) => {
-      const collectionsMap = convertCollectionsData(snapshot);
-      updateCollections(collectionsMap)
-    });
-
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+useEffect(()=>{
+  const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDoc(userAuth);
 
@@ -57,13 +46,25 @@ class App extends React.Component {
         setCurrentUser(userAuth);
       }
     });
-  }
+  
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
+  return () => {
+unsubscribeFromAuth();
   }
+},[])
 
-  render() {
+useEffect(()=> {
+  //pull in shop data
+    const collectionRef = firestore.collection("collections");
+
+    collectionRef.get().then((snapshot) => {
+      const collectionsMap = convertCollectionsData(snapshot);
+      updateCollections(collectionsMap)
+    });
+
+},[])
+
+
     return (
       <>
         <Header />
@@ -78,7 +79,7 @@ class App extends React.Component {
             exact
             path="/signin"
             element={
-              this.props.currentUser ? (
+              currentUser ? (
                 <Navigate replace to="/" />
               ) : (
                 <SignInPage />
@@ -89,7 +90,7 @@ class App extends React.Component {
             exact
             path="/signup"
             element={
-              this.props.currentUser ? (
+              currentUser ? (
                 <Navigate replace to="/" />
               ) : (
                 <SignUpPage />
@@ -100,7 +101,6 @@ class App extends React.Component {
       </>
     );
   }
-}
 
 //bring in setCurrentUser action from the reducer
 const mapDispatchToProps = (dispatch) => ({
