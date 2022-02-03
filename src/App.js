@@ -38,7 +38,6 @@ class App extends React.Component {
 
     collectionRef.get().then((snapshot) => {
       const collectionsMap = convertCollectionsData(snapshot);
-      console.log(collectionsMap)
       updateCollections(collectionsMap)
     });
 
