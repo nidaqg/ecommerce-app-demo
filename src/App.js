@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useEffect} from "react";
 
 //connect is a higher order function from redux
 import { connect } from "react-redux";
