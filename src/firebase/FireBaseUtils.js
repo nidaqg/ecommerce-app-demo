@@ -57,6 +57,8 @@ export const createUserProfileDoc = async (userAuth, additionalData) => {
 
 };
 
+//function to add all shop data to firebase. only ran it once to upload data then
+//removed call to this function from App.js
 export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
   const collectionRef = firestore.collection(collectionKey);
   console.log(collectionRef)
@@ -67,6 +69,22 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
    batch.set(newDocRef, obj)
   })
   await batch.commit();
+};
+
+//function to get shop collections from firestore and add routename property
+export const convertCollectionsData = (collections)=> {
+  const transformedCollections = collections.docs.map(
+    doc=> {
+      const {title, items} = doc.data();
+
+      return {
+        routeName: encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items
+      }
+    });
+    return transformedCollections;
 }
 
 

@@ -6,22 +6,24 @@ import { setCurrentUser } from "./Redux/User/User-Actions";
 
 //import selectors
 import { selectCurrentUser } from "./Redux/User/UserSelectors";
+import { updateCollections } from "./Redux/Shop/ShopActions";
 
 import { Homepage } from "./Pages/Homepage/Homepage";
 import ShopPage from "./Pages/ShopPage/ShopPage";
 import Header from "./Components/Header/Header";
 import { SignInPage } from "./Pages/SignIn/SignInPage";
 import { SignUpPage } from "./Pages/SignUp/SignUpPage";
-import CheckoutPage  from "./Pages/Checkout/CheckoutPage";
+import CheckoutPage from "./Pages/Checkout/CheckoutPage";
 
-import { auth, createUserProfileDoc} from "./firebase/FireBaseUtils";
+import {
+  auth,
+  createUserProfileDoc,
+  firestore,
+  convertCollectionsData,
+} from "./firebase/FireBaseUtils";
 
 import "./app.scss";
-import {
-  Route,
-  Routes,
-  Navigate,
-} from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import CollectionsOverview from "./Components/Collections-Overview/CollectionsOverview";
 import CollectionsPage from "./Pages/CollectionsPage/CollectionsPage";
 
@@ -30,7 +32,15 @@ class App extends React.Component {
 
   componentDidMount() {
     //decontruct for easier code
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, updateCollections } = this.props;
+    //pull in shop data
+    const collectionRef = firestore.collection("collections");
+
+    collectionRef.get().then((snapshot) => {
+      const collectionsMap = convertCollectionsData(snapshot);
+      console.log(collectionsMap)
+      updateCollections(collectionsMap)
+    });
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -57,38 +67,37 @@ class App extends React.Component {
   render() {
     return (
       <>
-          <Header />
-          <Routes>
-            <Route exact path="/" element={<Homepage />} />
-            <Route path="/shop/*" element={<ShopPage />}>
-              <Route path="" element={<CollectionsOverview/>}/>
-              <Route path=":collectionId" element={<CollectionsPage/>}/>
-            </Route>
-            <Route exact path="/checkout" element={<CheckoutPage/>}/>
-            <Route
-              exact
-              path="/signin"
-              element={
-                this.props.currentUser ? (
-                  <Navigate replace to="/" />
-                ) : (
-                  <SignInPage />
-                )
-              }
-            />
-              <Route
-              exact
-              path="/signup"
-              element={
-                this.props.currentUser ? (
-                  <Navigate replace to="/" />
-                ) : (
-                  <SignUpPage />
-                )
-              }
-            />
-
-          </Routes>
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Homepage />} />
+          <Route path="/shop/*" element={<ShopPage />}>
+            <Route path="" element={<CollectionsOverview />} />
+            <Route path=":collectionId" element={<CollectionsPage />} />
+          </Route>
+          <Route exact path="/checkout" element={<CheckoutPage />} />
+          <Route
+            exact
+            path="/signin"
+            element={
+              this.props.currentUser ? (
+                <Navigate replace to="/" />
+              ) : (
+                <SignInPage />
+              )
+            }
+          />
+          <Route
+            exact
+            path="/signup"
+            element={
+              this.props.currentUser ? (
+                <Navigate replace to="/" />
+              ) : (
+                <SignUpPage />
+              )
+            }
+          />
+        </Routes>
       </>
     );
   }
@@ -97,6 +106,7 @@ class App extends React.Component {
 //bring in setCurrentUser action from the reducer
 const mapDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  updateCollections: (collectionsMap) => dispatch(updateCollections(collectionsMap))
 });
 
 //bring in currentUser from reducer
